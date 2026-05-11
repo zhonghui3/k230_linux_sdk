@@ -1,6 +1,8 @@
 /output
 .last_conf
 /dl
+build.log
+*.bak
 compile_commands.json*
 .cache
 /test

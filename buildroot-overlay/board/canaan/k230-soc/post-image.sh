@@ -228,6 +228,9 @@ gen_env_bin()
 		sed -i 's/^bootcmd=.*$/bootcmd=run bnuttx;run blinuxilp32;/g' ${default_env_file}
 	elif [ ${CONF} == "k230d_canmv_defconfig" ] || [ ${CONF} == "BPI-CanMV-K230D-Zero_defconfig" ]; then
 		sed -i 's/^bootcmd=.*$/bootcmd=run bnuttx;run blinux;/g' ${default_env_file}
+	elif [ ${CONF} == "k230d_canmv_atk_dnk230d_defconfig" ]; then
+		sed -i 's/^bootcmd=.*$/bootcmd=run blinux;/g' ${default_env_file}
+		sed -i 's/^mmc_boot_dev_num=.*$/mmc_boot_dev_num=0/g' ${default_env_file}
 	else
 		sed -i 's/^bootcmd=.*$/bootcmd=run blinux;/g' ${default_env_file}
 	fi
