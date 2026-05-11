@@ -1,0 +1,87 @@
+// SPDX-License-Identifier: GPL-2.0 OR MIT
+/*
+ * Copyright (C) 2024 Alientek
+ * Alientek DNK230D development board device tree
+ */
+
+#include "k230.dtsi"
+#include "display-st7701-480x640.dtsi"
+
+/ {
+	model = "Alientek DNK230D";
+	compatible = "alientek,dnk230d", "canaan,kendryte-k230";
+
+	aliases {
+		serial2 = &uart2;
+		mmc0 = &mmc_sd0;
+		mmc1 = &mmc_sd1;
+	};
+
+	chosen {
+		stdout-path = "serial0:115200n8";
+	};
+
+	ddr: memory@0 {
+		device_type = "memory";
+		reg = <0x0 0x0 0x0 0x8000000>;
+	};
+
+	sound {
+		status                      = "okay";
+		compatible                  = "canaan,k230-audio-inno";
+		canaan,model                = "K230_I2S_INNO";
+		canaan,k230-i2s-controller  = <&i2s>;
+		canaan,k230-audio-codec     = <&inno_codec>;
+	};
+
+	backlight {
+		compatible = "gpio-backlight";
+		gpios = <&gpio0_ports 5 GPIO_ACTIVE_HIGH>;
+		default-on;
+	};
+};
+
+&mmc_sd0 {
+	status = "okay";
+	cap-sd-highspeed;
+	rx_delay_line = <0x0d>;
+	tx_delay_line = <0xb0>;
+	sdhci-caps-mask = <0x2 0>;
+};
+
+&mmc_sd1 {
+	status = "okay";
+	no-1-8-v;
+	cap-sd-highspeed;
+	mshc_ctrl_r = <0x00>;
+};
+
+&uart0 {
+	status = "okay";
+};
+
+&uart2 {
+	status = "okay";
+};
+
+&i2c3 {
+	status = "okay";
+};
+
+&i2c4 {
+	status = "okay";
+};
+
+&usb0 {
+	status = "okay";
+};
+
+&usb1 {
+	dr_mode = "host";
+	status = "okay";
+};
+
+&lcd {
+	dsi_reset-gpios = <&gpio0_ports 3 GPIO_ACTIVE_HIGH>;
+	backlight_gpio-gpios = <&gpio0_ports 5 GPIO_ACTIVE_HIGH>;
+};
